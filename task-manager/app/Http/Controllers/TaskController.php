@@ -7,59 +7,74 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Show all tasks for logged in user
     public function index()
     {
-        //
+        $tasks = Task::where('user_id', auth()->id())
+            ->latest()
+            ->get();
+
+        return view('tasks.index', compact('tasks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Show create form
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Store new task
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'nullable',
+            'type' => 'required',
+            'due_date' => 'nullable|date'
+        ]);
+
+        Task::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'description' => $request->description,
+            'type' => $request->type,
+            'due_date' => $request->due_date
+        ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Task created!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Task $task)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Show edit form
     public function edit(Task $task)
     {
-        //
+        $this->authorizeTask($task);
+
+        return view('tasks.edit', compact('task'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Update task
     public function update(Request $request, Task $task)
     {
-        //
+        $this->authorizeTask($task);
+
+        $task->update($request->only('title', 'description', 'type', 'due_date'));
+
+        return redirect()->route('tasks.index')->with('success', 'Task updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Delete task
     public function destroy(Task $task)
     {
-        //
+        $this->authorizeTask($task);
+
+        $task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted!');
+    }
+
+    // Ensure user owns the task
+    private function authorizeTask(Task $task)
+    {
+        abort_if($task->user_id !== auth()->id(), 403);
     }
 }
