@@ -15,6 +15,16 @@ class Task extends Model
         'description',
         'type',
         'is_completed',
-        'due_date',
+        'due_date'
     ];
+
+    protected $casts = [
+        'is_completed' => 'boolean',
+        'due_date' => 'date'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
