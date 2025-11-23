@@ -438,15 +438,7 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 - **GitHub:** [Skaveza](https://github.com/Skaveza)
 - **LinkedIn:** [Sifa Mwachoni](https://www.linkedin.com/in/sifa-mwachoni/)
-- Email: sifakaveza@gmail.com
 
-## Acknowledgments
-
-- **RWBuild** - For the opportunity and inspiration
-- **Laravel** - For the amazing framework
-- **Tailwind CSS** - For the beautiful UI components
-- **Laracasts** - For excellent Laravel tutorials
-- **Rob Rickard** - For building RWBuild and supporting Rwanda's tech ecosystem
 
 ##  Support
 
@@ -455,13 +447,7 @@ If you have any questions or run into issues:
 1. Check the [Installation](#installation) section
 2. Review [API Documentation](#api-documentation)
 3. Open an issue on GitHub
-4. Contact: your.email@example.com
 
----
-
-**Built with ❤️ in Kigali, Rwanda**
-
-*This project was created as part of the application process for the Laravel Backend Developer Intern position at RWBuild.*
 
 ---
 
